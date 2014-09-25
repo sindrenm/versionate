@@ -2,6 +2,14 @@ module Versionate
   class Versioner
     GEM_REGEXP = /^\s*gem ['"](?<name>.+?)['"](?<extra>,.+$?)?/
 
+    def versionate(filename)
+      result = process filename
+
+      File.open filename, "w" do |file|
+        file.write result
+      end
+    end
+
     def latest_version_for(gem_name)
       provider.info(gem_name.to_sym)["version"]
     end

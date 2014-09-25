@@ -3,7 +3,37 @@ require "spec_helper"
 module Versionate
 
   describe Versioner do
-    let(:filename) { "Gemfile" }
+    let(:filename)    { "Gemfile" }
+    let(:output_file) { StringIO.new }
+
+    before do
+      allow(File).to receive(:open)
+        .with(filename, "w")
+        .and_yield output_file
+    end
+
+    after { output_file.close }
+
+    describe "#versionate" do
+      it "processes the file" do
+        expect(subject).to receive(:process).with(filename)
+        subject.versionate filename
+      end
+
+      it "overwrites the file with the processed content" do
+        processed_content = "Processed content"
+
+        allow(subject).to receive(:process)
+          .with(filename)
+          .and_return processed_content
+
+        subject.versionate filename
+
+        output_file.rewind
+
+        expect(output_file.read).to eq processed_content
+      end
+    end
 
     describe "#latest_version_for" do
       it "returns the latest version of the specified gem" do
