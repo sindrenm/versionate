@@ -1,4 +1,5 @@
 require "versionate/version"
+require "versionate/api_adapter"
 require "versionate/configuration"
 
 module Versionate
