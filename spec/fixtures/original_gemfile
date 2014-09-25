@@ -1,0 +1,28 @@
+source 'https://rubygems.org'
+
+gem 'rails', '4.0.0'
+
+gem 'thor'
+
+gem 'rake', '~> 10.3'
+
+gem 'rack'
+gem 'json'
+
+group :production do
+  gem 'unicorn'
+end
+
+group :test do
+  gem 'rspec'
+end
+
+group :development do
+  gem 'versionate', path: './'
+
+  gem 'pry', github: 'pry'
+end
+
+group :development, :test do
+  gem 'factory_girl_rails', '~> 4.4'
+end
