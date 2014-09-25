@@ -21,7 +21,7 @@ class GemsMock
     versionate: "0.1.0",
   }
 
-  def info(gem_name)
+  def self.info(gem_name)
     { "version" => GEM_MOCK_VERSIONS[gem_name.to_sym] }
   end
 end
