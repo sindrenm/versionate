@@ -10,4 +10,10 @@ describe Versionate do
     end
   end
 
+  describe "::config" do
+    it "returns an instance of Configuration" do
+      expect(subject.config).to be_a Versionate::Configuration
+    end
+  end
+
 end

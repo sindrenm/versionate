@@ -9,8 +9,6 @@ module Versionate
       yield config if block_given?
     end
 
-    private
-
     def config
       @config ||= Versionate::Configuration.new
     end
