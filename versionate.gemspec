@@ -16,6 +16,9 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^spec/})
   gem.require_paths = ["lib"]
 
+  gem.bindir        = "bin"
+  gem.executables   = ["versionate"]
+
   gem.add_dependency "gems", "~> 0.8"
 
   gem.add_development_dependency "coveralls", "~> 0.7"
