@@ -2,4 +2,8 @@
 
 require "versionate"
 
-Versionate.versionate
+if ARGV.any?
+  Versionate.versionate ARGV.first
+else
+  Versionate.versionate
+end
