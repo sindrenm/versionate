@@ -1,9 +1,10 @@
 module Versionate
   class Versioner
-    GEM_REGEXP = /^\s*gem ['"](?<name>.+?)['"](?<extra>,.+$?)?/
+    GEM_REGEXP     = /^\s*gem ['"](?<name>.+?)['"](?<extra>,.+$?)?/
+    VERSION_REGEXP = /^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)/
 
-    def versionate(filename)
-      result = process filename
+    def versionate(filename, options = {})
+      result = process filename, options
 
       File.open filename, "w" do |file|
         file.write result
@@ -14,7 +15,10 @@ module Versionate
       provider.info(gem_name.to_sym)["version"]
     end
 
-    def process(filename)
+    def process(filename, options = {})
+      patch     = options.fetch("patch", true)
+      specifier = options["specifier"]
+
       orig_file = File.open(filename)
       tmp = StringIO.new
         
@@ -23,6 +27,10 @@ module Versionate
 
         if gem_name
           version = latest_version_for gem_name
+
+          version = remove_patch_version version unless patch
+          version = with_specifier(specifier, version) if specifier
+
           tmp.puts "#{line.chomp}, '#{version}'"
         else
           tmp.puts line
@@ -51,6 +59,16 @@ module Versionate
 
     def provider
       @provider ||= ApiAdapter.new.provider
+    end
+
+    def remove_patch_version(version)
+      version.match VERSION_REGEXP do |match|
+        [ match[:major], match[:minor] ].join "."
+      end
+    end
+
+    def with_specifier(specifier, version)
+      "#{specifier} #{version}"
     end
   end
 end

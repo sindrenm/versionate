@@ -15,16 +15,19 @@ module Versionate
     after { output_file.close }
 
     describe "#versionate" do
-      it "processes the file" do
-        expect(subject).to receive(:process).with(filename)
-        subject.versionate filename
+      it "processes the file with the correct options" do
+        options = { "no-patch" => true, "specifier" => "=" }
+
+        expect(subject).to receive(:process)
+          .with("Gemfile", options)
+
+        subject.versionate filename, options
       end
 
       it "overwrites the file with the processed content" do
         processed_content = "Processed content"
 
         allow(subject).to receive(:process)
-          .with(filename)
           .and_return processed_content
 
         subject.versionate filename
@@ -51,10 +54,52 @@ module Versionate
           .and_return orig_file
       end
 
+      context "when patch version should be kept" do
+        it "removes the patch version" do
+          expect(subject).not_to receive(:remove_patch_version)
+
+          subject.process filename, "patch" => true
+        end
+      end
+
+      context "when patch version should be removed" do
+        it "removes the patch version" do
+          expect(subject).to receive(:remove_patch_version)
+            .at_least(:once)
+
+          subject.process filename, "patch" => false
+        end
+      end
+
+      context "when given a version specifier" do
+        it "prepends the version with that specifier" do
+          version = kind_of String
+          expect(subject).to receive(:with_specifier)
+            .with("~>", version)
+            .at_least(:once)
+
+          subject.process filename, "specifier" => "~>"
+        end
+      end
+
+      context "when not given a version specifier" do
+        it "defaults to using no specifier" do
+          expect(subject).not_to receive(:with_specifier)
+
+          subject.process filename
+        end
+      end
+
       it "appends versions to unversioned gems" do
         result = subject.process filename
 
         expect(result).to eq fixture :processed_gemfile
+      end
+
+      it "defaults to keeping the patch version" do
+        expect(subject).not_to receive :remove_patch_version
+
+        subject.process filename
       end
     end
 

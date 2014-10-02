@@ -7,9 +7,10 @@ describe Versionate do
   describe "::versionate" do
     it "delegates to the versioner" do
       expect_any_instance_of(Versionate::Versioner)
-        .to receive(:versionate).with("Gemfile")
+        .to receive(:versionate)
+        .with("Gemfile", {})
 
-      subject.versionate "Gemfile"
+      subject.versionate "Gemfile", {}
     end
   end
 

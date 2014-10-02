@@ -7,8 +7,8 @@ module Versionate
 
   class << self
 
-    def versionate gemfile
-      versioner.versionate gemfile
+    def versionate(gemfile, options)
+      versioner.versionate gemfile, options
     end
 
     def configure
