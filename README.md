@@ -54,19 +54,19 @@ is always available for you:
 $ versionate help
 Commands:
   versionate help [COMMAND]      # Describe available commands or one specific command
-  versionate version [FILENAME]  # Versions a given file (default: Gemfile)
+  versionate process [FILENAME]  # Processes a given file (default: Gemfile)
 ```
 
 You can also ask for help on specific sub-command:
 
 ```bash
-$ versionate help version
+$ versionate help process
 Usage:
-  versionate version [FILENAME]
+  versionate process [FILENAME]
 
 Options:
   [--patch], [--no-patch]  # Whether or not to keep patch version (default: true)
   [--specifier=SPECIFIER]  # Specifier to be prepended to version
 
-Versions a given file (default: Gemfile)
+Processes a given file (default: Gemfile)
 ```
