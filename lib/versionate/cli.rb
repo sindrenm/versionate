@@ -19,6 +19,12 @@ module Versionate
       Versionate.versionate file, options
     end
 
+    desc "version", "Display the version of versionate"
+
+    def version
+      puts Versionate::VERSION
+    end
+
     default_task :process
 
   end
