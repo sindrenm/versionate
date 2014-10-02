@@ -7,7 +7,7 @@ module Versionate
 
   class << self
 
-    def versionate gemfile = "Gemfile"
+    def versionate gemfile
       versioner.versionate gemfile
     end
 

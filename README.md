@@ -16,8 +16,8 @@ $ versionate
 ```
 
 If, for some odd reason, your Gemfile is called something other than “Gemfile”,
-you can specify the name as an argument to the command, like this:
+you can specify the name as an argument to the sub-command `version`, like this:
 
 ```bash
-$ versionate file_with_gems.rb
+$ versionate version file_with_gems.rb
 ```

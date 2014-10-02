@@ -1,9 +1,5 @@
 #! /usr/bin/env ruby
 
-require "versionate"
+require "versionate/cli"
 
-if ARGV.any?
-  Versionate.versionate ARGV.first
-else
-  Versionate.versionate
-end
+Versionate::CLI.start ARGV
