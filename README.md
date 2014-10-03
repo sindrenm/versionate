@@ -16,10 +16,10 @@ $ versionate
 ```
 
 If, for some odd reason, your Gemfile is called something other than “Gemfile”,
-you can specify the name as an argument to the sub-command `version`, like this:
+you can specify the name as an argument to the sub-command `process`, like this:
 
 ```bash
-$ versionate version file_with_gems.rb
+$ versionate process file_with_gems.rb
 ```
 
 ### Options
@@ -42,7 +42,7 @@ $ versionate --specifier="~>"
 Of course, this also works when using the more verbose syntax:
 
 ```bash
-$ versionate version --no-patch --specifier="~>" Gemfile
+$ versionate process --no-patch --specifier="~>" Gemfile
 ```
 
 ### Getting help
