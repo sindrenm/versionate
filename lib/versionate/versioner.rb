@@ -11,13 +11,18 @@ module Versionate
       end
     end
 
-    def latest_version_for(gem_name)
-      provider.info(gem_name.to_sym)["version"]
+    def latest_version_for(gem_name, stable:)
+      if stable
+        provider.info(gem_name.to_sym)["version"]
+      else
+        provider.versions(gem_name.to_sym).max_by { |v| v["number"] }["number"]
+      end
     end
 
     def process(filename, options = {})
       patch     = options.fetch("patch", true)
       specifier = options["specifier"]
+      stable    = !options["pre"]
 
       orig_file = File.open(filename)
       tmp = StringIO.new
@@ -26,7 +31,7 @@ module Versionate
         gem_name = gem_and_only_gem_from_line line
 
         if gem_name
-          version = latest_version_for gem_name
+          version = latest_version_for gem_name, stable: stable
 
           version = remove_patch_version version unless patch
           version = with_specifier(specifier, version) if specifier

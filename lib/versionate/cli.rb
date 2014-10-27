@@ -12,6 +12,11 @@ module Versionate
       type: :boolean,
       desc: "Whether or not to keep patch version (default: true)"
 
+    option :pre,
+      type: :boolean,
+      desc: "Whether or not to insert unstable versions (default: false)",
+      default: false
+
     option :specifier,
       type: :string,
       desc: "Specifier to be prepended to version"

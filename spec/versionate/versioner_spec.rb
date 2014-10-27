@@ -39,9 +39,18 @@ module Versionate
     end
 
     describe "#latest_version_for" do
-      it "returns the latest version of the specified gem" do
-        expect(subject.latest_version_for :factory_girl_rails)
-          .to eq GemsMock::GEM_MOCK_VERSIONS[:factory_girl_rails]
+      context "when asking for a stable release" do
+        it "returns the latest stable version of the specified gem" do
+          expect(subject.latest_version_for :factory_girl_rails, stable: true)
+            .to eq GemsMock::GEM_MOCK_STABLE_VERSIONS[:factory_girl_rails]
+        end
+      end
+
+      context "when asing for any release" do
+        it "returns the latest prerelease for the specified gem" do
+          expect(subject.latest_version_for :factory_girl_rails, stable: false)
+            .to eq "4.4.2.beta1"
+        end
       end
     end
 

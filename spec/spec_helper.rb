@@ -8,7 +8,7 @@ def fixture file
 end
 
 class GemsMock
-  GEM_MOCK_VERSIONS = {
+  GEM_MOCK_STABLE_VERSIONS = {
     factory_girl_rails: "4.4.1",
     json: "1.8.1",
     pry: "0.10.1",
@@ -21,8 +21,23 @@ class GemsMock
     versionate: "0.1.0",
   }
 
+  GEM_MOCK_ALL_VERSIONS = {
+    factory_girl_rails: [
+      { "number" => "4.4.2.beta1" },
+      { "number" => "4.4.1" },
+    ],
+    json: [
+      { "number" => "2.0.0.rc2" },
+      { "number" => "1.8.1" },
+    ],
+  }
+
   def self.info(gem_name)
-    { "version" => GEM_MOCK_VERSIONS[gem_name.to_sym] }
+    { "version" => GEM_MOCK_STABLE_VERSIONS[gem_name.to_sym] }
+  end
+
+  def self.versions(gem_name)
+    GEM_MOCK_ALL_VERSIONS[gem_name.to_sym]
   end
 end
 
