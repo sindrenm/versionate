@@ -1,3 +1,5 @@
+require 'stringio'
+
 module Versionate
   class Versioner
     GEM_REGEXP     = /^\s*gem ['"](?<name>.+?)['"](?<extra>,.+$?)?/
@@ -25,7 +27,7 @@ module Versionate
       stable    = !options["pre"]
 
       orig_file = File.open(filename)
-      tmp = StringIO.new
+      tmp = ::StringIO.new
         
       orig_file.each do |line|
         gem_name = gem_and_only_gem_from_line line
