@@ -1,4 +1,6 @@
 require "versionate/version"
+require "versionate/adapters/bundler"
+
 require "versionate/api_adapter"
 require "versionate/configuration"
 require "versionate/versioner"

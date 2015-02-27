@@ -20,10 +20,10 @@ Gem::Specification.new do |gem|
   gem.executables   = ["versionate"]
 
   gem.add_dependency "gems", "~> 0.8"
+  gem.add_dependency "bundler", "~> 1.8"
   gem.add_dependency "thor", "~> 0.19"
 
   gem.add_development_dependency "coveralls", "~> 0.7"
-  gem.add_development_dependency "bundler", "~> 1.3"
   gem.add_development_dependency "rake", "~> 10.3"
   gem.add_development_dependency "rspec", "~> 3.1"
 end

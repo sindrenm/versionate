@@ -7,8 +7,8 @@ module Versionate
       context "when in a production environment" do
         before { Versionate.configure { |c| c.environment = :production } }
 
-        it "returns the Gems provider" do
-          expect(subject.provider).to be Gems
+        it "returns the Bundler adapter" do
+          expect(subject.provider).to be Adapters::Bundler
         end
       end
 
