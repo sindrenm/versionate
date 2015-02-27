@@ -1,5 +1,3 @@
-require 'gems'
-
 module Versionate
   class ApiAdapter
     def provider
@@ -7,7 +5,7 @@ module Versionate
       when :test
         GemsMock
       when :production
-        ::Gems
+        Adapters::Bundler
       end
     end
   end
